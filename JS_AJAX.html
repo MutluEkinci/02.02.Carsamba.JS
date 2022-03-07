@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function ajaxRequest()
+        {
+            let xhr=new XMLHttpRequest();
+            xhr.onreadystatechange=function()
+            {
+                if(xhr.readyState==4 && xhr.status==200)
+                {
+                    //alert("islem basarili...");
+                    //alert(xhr.responseText);
+                    let jsonData=JSON.parse(xhr.responseText).data;
+                    let data=Array.from(jsonData);
+
+                    document.writeln("<table border=1>");
+
+                    for(let i=0;i<data.length;i++)
+                    {
+                        document.writeln("<tr><td>"+data[i].first_name+"</td><td>"+data[i].last_name+"</td><td>"+"<img src='"+data[i].avatar+"'/></td></tr>")
+                    }
+
+                    document.writeln("</table>");
+                }
+            }
+
+            xhr.open("GET","https://reqres.in/api/users?page=1",true);
+            xhr.send();
+        }
+    </script>
+    <img src="" alt="">
+</head>
+<body>
+    <button onclick="ajaxRequest()">Cagir</button>
+</body>
+</html>
